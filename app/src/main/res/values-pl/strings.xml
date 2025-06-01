@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="add">Dodaj</string>
+    <string name="remove">Usuń</string>
+    <string name="menu">Menu</string>
+    <string name="menu_exrates">Kursy walut</string>
+    <string name="menu_spendings">Wydatki</string>
+    <string name="add_trans">Dodaj transakcję</string>
+    <string name="trans_screen_close">Zamknij</string>
+    <string name="trans_amnt">Kwota</string>
+    <string name="trans_desc">Opis (opcjonalny)</string>
+    <string name="add_income">Dodaj Dochód</string>
+    <string name="add_expense">Dodaj Wydatek</string>
+    <string name="currency">zł</string>
+    <string name="no_desc">brak opisu</string>
+    <string name="trans_list">Lista transakcji</string>
+    <string name="trans_ret">Powrót</string>
+    <string name="delete_trans_title">Usuń transakcje</string>
+    <string name="delete_confirm_text">todo</string>
+    <string name="delete">usuń</string>
+    <string name="cancel">anuluj</string>
+    <string name="current_balance">Saldo</string>
+    <string name="balance_over_time">Stan konta w wybranym czasie</string>
+    <string name="no_data">Brak Danych</string>
+</resources>

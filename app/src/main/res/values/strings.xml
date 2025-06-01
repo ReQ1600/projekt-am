@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name" translatable="false">ProjektAM</string>
+    <string name="add">Add</string>
+    <string name="remove">Remove</string>
+    <string name="menu">Menu</string>
+    <string name="menu_exrates">Exchange rates</string>
+    <string name="menu_spendings">Spendings</string>
+    <string name="add_trans">Add transaction</string>
+    <string name="trans_screen_close">Close</string>
+    <string name="trans_amnt">Amount</string>
+    <string name="trans_desc">Description (optional)</string>
+    <string name="add_income">Add Income</string>
+    <string name="add_expense">Add Expense</string>
+    <string name="currency">£</string>
+    <string name="no_desc">no description</string>
+    <string name="trans_list">Transaction list</string>
+    <string name="trans_ret">Return</string>
+    <string name="delete_trans_title">Delete transation</string>
+    <string name="delete_confirm_text">costam</string>
+    <string name="delete">delete</string>
+    <string name="cancel">cancel</string>
+    <string name="current_balance">Balance</string>
+    <string name="balance_over_time">Balance over selected time</string>
+    <string name="no_data">No Data</string>
+</resources>
