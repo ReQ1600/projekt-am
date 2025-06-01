@@ -463,8 +463,8 @@ fun ChartScreen(viewModel: TransactionViewModel)
     var prevTransDate = sdf.format(0L).toString()
     for (transaction in sortedTrans){
         tmp_balance += if (transaction.type == TransactionType.INCOME) transaction.amount else -transaction.amount
-    //TODO: tu trzeba zmienic zeby on sobie zbieral ten tmp balance i dodawał do listy jak znajdzie ostatni element który ma taką samą datę bo teraz dodaje pierwszy z unikalną datą i go dodaje a reszta przepada
-        //TODO: a tak wgl to dobrze by było wszystkie pkt tak zsumować na starcie żeby on nie startował z 0 za każdym razem jak sie zakres zmieni tylko z tego co miał w pierwszym pkt danego zakresu
+    //TODO: tu trzeba zmienic zeby on sobie zbieral ten tmp_balance i jak znajdzie ostatni element który ma taką samą datę to niech w tedy doda do listy bo teraz dodaje pierwszy z unikalną datą i go dodaje a reszta przepada
+        //TODO: a tak wgl to dobrze by było wszystkie pkt tak zsumować na starcie żeby on nie startował z 0 za każdym razem jak sie zakres zmieni tylko z tego co miał w pierwszym pkt danego zakresu można na przykład użyć LaunchedEffect(transactions){tworzenie listy wszystkich pkt zsumowanych} w tedy bedzie sie robic tylko jak zmienia sie punkty
         val transDate = sdf.format(transaction.date)
         if (transDate != prevTransDate) {
             balanceOverRange.add(Point(it++, tmp_balance.toFloat()))
