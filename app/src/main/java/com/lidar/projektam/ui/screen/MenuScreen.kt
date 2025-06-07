@@ -47,14 +47,10 @@ fun Menu(navController: NavController,
 {
     Column(
         modifier = modifier
-            .fillMaxSize()
-            .padding(vertical = 8.dp),
+            .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         TopNavBelt()
-        Button(onClick = { navController.navigate("rates") }) {
-            Text("Go test")
-        }
 
         val layoutDirection = LocalLayoutDirection.current
 
@@ -83,8 +79,9 @@ fun Menu(navController: NavController,
 fun TopNavBelt(modifier: Modifier = Modifier){
     Surface(
         modifier = Modifier
-            .fillMaxWidth(),
-        color = Color.Gray
+            .fillMaxWidth()
+            .height(50.dp),
+        color = Color.DarkGray
     ){
         Box (
             modifier = Modifier.fillMaxWidth(),
@@ -107,7 +104,6 @@ fun MenuCard(item : MenuItem, navController: NavController, modifier: Modifier =
             .pointerInput(Unit) {
                 detectTapGestures(
                     onTap = {
-                        //Spendings will be changed to switch later on
                         when(item.index){
                             0 -> navController.navigate("rates")
                             1 -> navController.navigate("transactions")

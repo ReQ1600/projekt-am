@@ -25,4 +25,5 @@
     <string name="rates_header">Exchange rates to PLN</string>
     <string name="rates_rate">Rate</string>
     <string name="rates_currency">Currency</string>
+    <string name="menu_charts">Balance Chart</string>
 </resources>

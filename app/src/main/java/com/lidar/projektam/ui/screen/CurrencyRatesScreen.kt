@@ -50,7 +50,7 @@ fun CurrencyRatesScreen(navController: NavController, viewModel: NbpViewModel = 
             TopAppBar(
                 title = { Text(stringResource(R.string.rates_header)) },
                 navigationIcon = {
-                    IconButton(onClick = { navController.popBackStack() }) {
+                    IconButton(onClick = { navController.navigate("home") }) {
                         Icon(
                             Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(R.string.ret)
                         )

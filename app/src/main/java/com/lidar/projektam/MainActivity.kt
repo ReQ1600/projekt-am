@@ -145,7 +145,7 @@ fun AMApp(modifier: Modifier = Modifier) {
             val factory = TransactionViewModelFactory(repo)
             val viewModel: TransactionViewModel = viewModel(factory = factory)
 
-            ChartScreen(viewModel = viewModel)
+            ChartScreen(navController, viewModel = viewModel)
         }
         composable("rates") { CurrencyRatesScreen(navController) }
     }

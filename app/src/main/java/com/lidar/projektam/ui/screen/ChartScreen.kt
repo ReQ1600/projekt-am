@@ -1,12 +1,19 @@
 package com.lidar.projektam.ui.screen
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -14,11 +21,15 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.navigation.NavController
 import co.yml.charts.axis.AxisData
 import co.yml.charts.common.model.Point
 import co.yml.charts.ui.linechart.LineChart
@@ -38,9 +49,8 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 
-//TODO: add return btn at the top
 @Composable
-fun ChartScreen(viewModel: TransactionViewModel)
+fun ChartScreen(navController: NavController, viewModel: TransactionViewModel)
 {
     val transactions by viewModel.transactions.collectAsState()
 
@@ -59,35 +69,72 @@ fun ChartScreen(viewModel: TransactionViewModel)
     val dates = mutableListOf<String>()
     val sdf = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
     val saveSdf = SimpleDateFormat("dd.MM", Locale.getDefault())
-    var tmp_balance = 0.0
-
 
     //calculating budget in time points
     var it = 0f
-    var prevTransDate = sdf.format(0L).toString()
+    var prevTransDate = ""
+    var last_added_id : Int = -1
+    //summing all older transactions
+    var tmp_balance = (transactions - filteredTrans).sumOf { if (it.type == TransactionType.INCOME) it.amount else -it.amount }
+
     for (transaction in sortedTrans){
         tmp_balance += if (transaction.type == TransactionType.INCOME) transaction.amount else -transaction.amount
-        //TODO: tu trzeba zmienic zeby on sobie zbieral ten tmp_balance i jak znajdzie ostatni element który ma taką samą datę to niech w tedy doda do listy bo teraz dodaje pierwszy z unikalną datą i go dodaje a reszta przepada
-        //TODO: a tak wgl to dobrze by było wszystkie pkt tak zsumować na starcie żeby on nie startował z 0 za każdym razem jak sie zakres zmieni tylko z tego co miał w pierwszym pkt danego zakresu można na przykład użyć LaunchedEffect(transactions){tworzenie listy wszystkich pkt zsumowanych} w tedy bedzie sie robic tylko jak zmienia sie punkty
+
         val transDate = sdf.format(transaction.date)
-        if (transDate != prevTransDate) {
+        if (transDate != prevTransDate || it == 0f) {
             balanceOverRange.add(Point(it++, tmp_balance.toFloat()))
             dates.add(saveSdf.format(transaction.date))
+            ++last_added_id
+        }
+        else
+        {
+            //updating balance if date doesnt change
+            balanceOverRange[last_added_id] = Point(last_added_id.toFloat(), tmp_balance.toFloat())
         }
         prevTransDate = transDate
 
     }
 
     ConstraintLayout(modifier = Modifier.fillMaxSize()) {
-        val (titleRef, rangeSelectRef, chartRef) = createRefs()
+        val (goBackRef, titleRef, rangeSelectRef, chartRef) = createRefs()
+
+        Surface(
+            modifier = Modifier
+                .fillMaxWidth()
+                .constrainAs(goBackRef){
+                    top.linkTo(parent.top)
+                    start.linkTo(parent.start)
+                    end.linkTo(parent.end)
+                }.height(50.dp),
+            color = Color.DarkGray
+        ){
+            Box (
+                modifier = Modifier.fillMaxWidth(),
+                contentAlignment = Alignment.Center
+            ){
+                IconButton(
+                    onClick = { navController.navigate("home") },
+                    modifier = Modifier.align(Alignment.CenterStart)
+                ) {
+                    Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(R.string.ret))
+                }
+
+                Text(
+                    text = stringResource(R.string.menu_charts),
+                    style = MaterialTheme.typography.headlineSmall,
+                    textAlign = TextAlign.Center
+                )
+            }
+        }
 
         Text(
             text = stringResource(R.string.balance_over_time),
             modifier = Modifier.constrainAs(titleRef) {
-                top.linkTo(parent.top, margin = 16.dp)
+                top.linkTo(goBackRef.bottom, margin = 16.dp)
                 start.linkTo(parent.start)
                 end.linkTo(parent.end)
-            }
+            },
+            style = MaterialTheme.typography.headlineSmall
         )
 
         //range select
@@ -117,15 +164,17 @@ fun ChartScreen(viewModel: TransactionViewModel)
         val steps = pointsData.size - 1
 
         val xAxisData = AxisData.Builder()
-            .axisStepSize(100.dp)
+            .axisStepSize(50.dp)
             .backgroundColor(Color.Transparent)
             .steps(steps)
-            .labelData { i -> i.toString() }
-            .labelAndAxisLinePadding(15.dp)
+            .labelData { i ->
+                val scale = (pointsData.last().y - pointsData.first().y) / steps
+                "%.2f".format(i * scale + pointsData.first().y) }
+            .labelAndAxisLinePadding(20.dp)
             .build()
 
         val yAxisData = AxisData.Builder()
-            .axisStepSize(100.dp)
+            .axisStepSize(50.dp)
             .steps(steps)
             .backgroundColor(Color.Transparent)
             .labelAndAxisLinePadding(15.dp)
@@ -153,19 +202,21 @@ fun ChartScreen(viewModel: TransactionViewModel)
         )
 
         if (pointsData.isNotEmpty()) {
-            LineChart(
-                modifier = Modifier.fillMaxWidth().padding(vertical = 50.dp).constrainAs(chartRef) {
-                    top.linkTo(rangeSelectRef.top)
-                    start.linkTo(parent.start)
-                    end.linkTo(parent.end)
-                },
-                lineChartData = lineChartData
-            )
+            Box(modifier = Modifier.fillMaxWidth().constrainAs(chartRef) {
+                top.linkTo(rangeSelectRef.bottom)
+                start.linkTo(parent.start)
+                end.linkTo(parent.end)
+            }){
+                LineChart(
+                    modifier = Modifier.fillMaxWidth().height(500.dp),
+                    lineChartData = lineChartData
+                )
+            }
         } else {
             Text(
                 stringResource(R.string.no_data),
                 modifier = Modifier.constrainAs(chartRef) {
-                    top.linkTo(parent.bottom, margin = 16.dp)
+                    top.linkTo(rangeSelectRef.bottom, margin = 16.dp)
                     start.linkTo(parent.start)
                     end.linkTo(parent.end)
                 }

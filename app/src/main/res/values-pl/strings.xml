@@ -25,4 +25,5 @@
     <string name="rates_header">Kursy wymiany na PLN</string>
     <string name="rates_rate">Kurs</string>
     <string name="rates_currency">Waluta</string>
+    <string name="menu_charts">Wykres Stanu Konta</string>
 </resources>
