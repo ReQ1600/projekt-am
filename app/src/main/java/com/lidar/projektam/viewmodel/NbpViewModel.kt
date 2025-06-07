@@ -20,8 +20,8 @@ class NbpViewModel : ViewModel() {
 
     init {
         listOf("EUR", "USD", "GBP", "JPY", "AUD", "CAD",
-            "NOK", "SEK", "DKK", "CZK", "HUF", "PLN", "TRY",
-            "NZD", "MXN", "ZAR", "SGD", "KRW", "INR","BRL",
+            "NOK", "SEK", "DKK", "CZK", "HUF", "TRY",
+            "NZD", "MXN", "ZAR", "KRW", "INR","BRL",
             "ILS", "PHP", "MYR", "THB").forEach{ fetchCurrencyRate(it) }
     }
 
