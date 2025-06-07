@@ -26,4 +26,8 @@
     <string name="rates_rate">Rate</string>
     <string name="rates_currency">Currency</string>
     <string name="menu_charts">Balance Chart</string>
+    <string name="chart_m">month</string>
+    <string name="chart_d">day</string>
+    <string name="chart_y">year</string>
+    <string name="chart_a">all</string>
 </resources>

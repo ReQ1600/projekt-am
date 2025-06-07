@@ -145,7 +145,12 @@ fun ChartScreen(navController: NavController, viewModel: TransactionViewModel)
                 end.linkTo(parent.end)
             }
         ){
-            listOf("week", "month", "year", "all").forEach { range ->
+            listOf(
+                stringResource(R.string.chart_d),
+                stringResource(R.string.chart_m),
+                stringResource(R.string.chart_y),
+                stringResource(R.string.chart_a)
+            ).forEach { range ->
                 Button(
                     onClick = { selectedRange = range },
                     modifier = Modifier.padding(end = 8.dp),

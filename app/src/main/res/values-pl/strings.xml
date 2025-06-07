@@ -26,4 +26,8 @@
     <string name="rates_rate">Kurs</string>
     <string name="rates_currency">Waluta</string>
     <string name="menu_charts">Wykres Stanu Konta</string>
+    <string name="chart_m">miesiąc</string>
+    <string name="chart_d">dzień</string>
+    <string name="chart_y">rok</string>
+    <string name="chart_a">wszystko</string>
 </resources>
