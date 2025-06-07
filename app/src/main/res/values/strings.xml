@@ -14,7 +14,7 @@
     <string name="currency">£</string>
     <string name="no_desc">no description</string>
     <string name="trans_list">Transaction list</string>
-    <string name="trans_ret">Return</string>
+    <string name="ret">Return</string>
     <string name="delete_trans_title">Delete transation</string>
     <string name="delete_confirm_text">costam</string>
     <string name="delete">delete</string>
@@ -22,4 +22,7 @@
     <string name="current_balance">Balance</string>
     <string name="balance_over_time">Balance over selected time</string>
     <string name="no_data">No Data</string>
+    <string name="rates_header">Exchange rates to PLN</string>
+    <string name="rates_rate">Rate</string>
+    <string name="rates_currency">Currency</string>
 </resources>

@@ -94,7 +94,7 @@ fun AddTransactionScreen(navController: NavController, viewModel: TransactionVie
                         type = TransactionType.INCOME,
                         description = description.ifBlank { null }
                     )
-                    //viewModel.populateWithDummyData(100)//TODO: delete
+                    //viewModel.populateWithDummyData(100)
                     navController.popBackStack()
                 }) {
                     Text(stringResource(R.string.add_income))
@@ -141,7 +141,7 @@ fun TransactionScreen(navController: NavController) {
                     IconButton(onClick = { navController.popBackStack() }) {
                         Icon(
                             Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(
-                                R.string.trans_ret)
+                                R.string.ret)
                         )
                     }
                 }
@@ -165,9 +165,7 @@ fun TransactionScreen(navController: NavController) {
                 contentAlignment = Alignment.Center
             ) {
                 Text(
-                    text = "${stringResource(R.string.current_balance)}: %.2f ${stringResource(R.string.currency)}".format(
-                        balance
-                    ),
+                    text = "${stringResource(R.string.current_balance)}: %.2f ${stringResource(R.string.currency)}".format(balance),
                     style = MaterialTheme.typography.headlineSmall,
                     color = if (balance >= 0) colorResource(R.color.ok) else colorResource(R.color.broke)
                 )
