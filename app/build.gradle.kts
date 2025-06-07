@@ -61,23 +61,21 @@ dependencies {
 
     implementation(libs.androidx.navigation.compose)
 
-    val room_version = "2.7.1"
+    implementation(libs.androidx.room.runtime)
+    ksp(libs.androidx.room.compiler)
+    annotationProcessor(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.ktx)
+    implementation(libs.androidx.room.rxjava2)
+    implementation(libs.androidx.room.rxjava3)
+    implementation(libs.androidx.room.guava)
+    testImplementation(libs.androidx.room.testing)
+    implementation(libs.androidx.room.paging)
 
-    implementation("androidx.room:room-runtime:$room_version")
-    ksp("androidx.room:room-compiler:$room_version")
-    annotationProcessor("androidx.room:room-compiler:$room_version")
-    implementation("androidx.room:room-ktx:$room_version")
-    implementation("androidx.room:room-rxjava2:$room_version")
-    implementation("androidx.room:room-rxjava3:$room_version")
-    implementation("androidx.room:room-guava:$room_version")
-    testImplementation("androidx.room:room-testing:$room_version")
-    implementation("androidx.room:room-paging:$room_version")
+    implementation(libs.androidx.constraintlayout.compose)
 
-    implementation("androidx.constraintlayout:constraintlayout-compose:1.0.1")
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
 
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.9.1")
-
-    implementation("co.yml:ycharts:2.1.0")
+    implementation(libs.ycharts)
 }
