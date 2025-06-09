@@ -16,7 +16,7 @@
     <string name="trans_list">Lista transakcji</string>
     <string name="ret">Powrót</string>
     <string name="delete_trans_title">Usuń transakcje</string>
-    <string name="delete_confirm_text">todo</string>
+    <string name="delete_confirm_text">Czy na pewno chcesz usunąć zaznaczoną transakcję?</string>
     <string name="delete">usuń</string>
     <string name="cancel">anuluj</string>
     <string name="current_balance">Saldo</string>
@@ -27,7 +27,14 @@
     <string name="rates_currency">Waluta</string>
     <string name="menu_charts">Wykres Stanu Konta</string>
     <string name="chart_m">miesiąc</string>
-    <string name="chart_d">dzień</string>
+    <string name="chart_w">tydzień</string>
     <string name="chart_y">rok</string>
     <string name="chart_a">wszystko</string>
+    <string name="rec_btn_scan">Skanuj paragon</string>
+    <string name="rec_no_access">Brak dostępu do kamery. Zezwól na używanie kamery w ustawieniach telefonu.</string>
+    <string name="rec_amnt">Kwota</string>
+    <string name="rec_not_found">Nie wykryto</string>
+    <string name="rec_title">Skaner Paragonów</string>
+    <string name="rec_btn_add">Dodaj do wydatków</string>
+    <string name="rec_added">Dodano paragon</string>
 </resources>

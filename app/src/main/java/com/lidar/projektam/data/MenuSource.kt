@@ -9,11 +9,7 @@ class MenuSource {
             MenuItem(R.string.menu_exrates, R.drawable.tst, 0),
             MenuItem(R.string.menu_spendings, R.drawable.tst, 1),
             MenuItem(R.string.menu_charts, R.drawable.tst, 2),
-            MenuItem(R.string.menu_spendings, R.drawable.tst, 3),
-            MenuItem(R.string.menu_exrates, R.drawable.tst, 4),
-            MenuItem(R.string.menu_spendings, R.drawable.tst, 5),
-            MenuItem(R.string.menu_exrates, R.drawable.tst, 6),
-            MenuItem(R.string.menu_spendings, R.drawable.tst, 7)
+            MenuItem(R.string.rec_title, R.drawable.tst, 3)
         )
     }
 }

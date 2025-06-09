@@ -61,7 +61,7 @@ fun AddTransactionScreen(navController: NavController, viewModel: TransactionVie
             TopAppBar(
                 title = { Text(stringResource(R.string.add_trans)) },
                 navigationIcon = {
-                    IconButton(onClick = { navController.popBackStack() }) {
+                    IconButton(onClick = { navController.navigate("home") }) {
                         Icon(Icons.Default.Close, contentDescription = stringResource(R.string.trans_screen_close))
                     }
                 }
@@ -74,7 +74,8 @@ fun AddTransactionScreen(navController: NavController, viewModel: TransactionVie
             OutlinedTextField(
                 value = amount,
                 onValueChange = { amount = it },
-                label = { Text(stringResource(R.string.trans_amnt)) }
+                label = { Text(stringResource(R.string.trans_amnt)) },
+                modifier = Modifier.fillMaxWidth()
             )
 
             Spacer(modifier = Modifier.height(8.dp))
@@ -82,21 +83,24 @@ fun AddTransactionScreen(navController: NavController, viewModel: TransactionVie
             OutlinedTextField(
                 value = description,
                 onValueChange = { description = it },
-                label = { Text(stringResource(R.string.trans_desc)) }
+                label = { Text(stringResource(R.string.trans_desc)) },
+                modifier = Modifier.fillMaxWidth()
             )
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            Row {
+            Row (modifier = Modifier.fillMaxWidth()) {
                 Button(onClick = {
                     viewModel.addTransaction(
                         amount = amount.toDoubleOrNull() ?: 0.0,
                         type = TransactionType.INCOME,
                         description = description.ifBlank { null }
                     )
-                    //viewModel.populateWithDummyData(100)
-                    navController.popBackStack()
-                }) {
+                    //viewModel.populateWithDummyData()
+                    navController.navigate("transactions")
+                },
+                    modifier = Modifier.weight(1f)
+                ) {
                     Text(stringResource(R.string.add_income))
                 }
 
@@ -108,8 +112,10 @@ fun AddTransactionScreen(navController: NavController, viewModel: TransactionVie
                         type = TransactionType.EXPENSE,
                         description = description.ifBlank { null }
                     )
-                    navController.popBackStack()
-                }) {
+                    navController.navigate("transactions")
+                },
+                    modifier = Modifier.weight(1f)
+                    ) {
                     Text(stringResource(R.string.add_expense))
                 }
             }
@@ -138,7 +144,7 @@ fun TransactionScreen(navController: NavController) {
             TopAppBar(
                 title = { Text(stringResource(R.string.trans_list)) },
                 navigationIcon = {
-                    IconButton(onClick = { navController.popBackStack() }) {
+                    IconButton(onClick = { navController.navigate("home") }) {
                         Icon(
                             Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(
                                 R.string.ret)

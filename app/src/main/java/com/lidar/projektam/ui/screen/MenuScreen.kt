@@ -108,6 +108,7 @@ fun MenuCard(item : MenuItem, navController: NavController, modifier: Modifier =
                             0 -> navController.navigate("rates")
                             1 -> navController.navigate("transactions")
                             2 -> navController.navigate("charts")
+                            3 -> navController.navigate("scanner")
                         }
                     }
                 )

@@ -1,5 +1,7 @@
 [versions]
+accompanistPermissions = "0.34.0"
 agp = "8.10.0"
+cameraCore = "1.4.2"
 constraintlayoutCompose = "1.1.1"
 converterGson = "2.9.0"
 kotlin = "2.0.21"
@@ -16,9 +18,15 @@ navigationComposeJvmstubs = "2.9.0"
 constraintlayout = "2.2.1"
 retrofit = "2.9.0"
 roomRuntime = "2.7.1"
+textRecognition = "16.0.1"
 ycharts = "2.1.0"
 
 [libraries]
+accompanist-permissions = { module = "com.google.accompanist:accompanist-permissions", version.ref = "accompanistPermissions" }
+androidx-camera-camera2 = { module = "androidx.camera:camera-camera2", version.ref = "cameraCore" }
+androidx-camera-core = { module = "androidx.camera:camera-core", version.ref = "cameraCore" }
+androidx-camera-lifecycle = { module = "androidx.camera:camera-lifecycle", version.ref = "cameraCore" }
+androidx-camera-view = { module = "androidx.camera:camera-view", version.ref = "cameraCore" }
 androidx-constraintlayout-compose = { module = "androidx.constraintlayout:constraintlayout-compose", version.ref = "constraintlayoutCompose" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycleViewmodelKtx" }
@@ -48,6 +56,7 @@ androidx-material3 = { group = "androidx.compose.material3", name = "material3" 
 androidx-navigation-compose-jvmstubs = { group = "androidx.navigation", name = "navigation-compose-jvmstubs", version.ref = "navigationComposeJvmstubs" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+text-recognition = { module = "com.google.mlkit:text-recognition", version.ref = "textRecognition" }
 ycharts = { module = "co.yml:ycharts", version.ref = "ycharts" }
 
 [plugins]

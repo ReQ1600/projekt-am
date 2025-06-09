@@ -1,9 +1,18 @@
 package com.lidar.projektam
 
+import android.content.Context
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.camera.core.CameraSelector
+import androidx.camera.core.ImageCapture
+import androidx.camera.core.ImageCaptureException
+import androidx.camera.lifecycle.ProcessCameraProvider
+import androidx.camera.view.PreviewView
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -15,7 +24,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.camera.core.Preview
 import androidx.compose.ui.unit.dp
 import com.lidar.projektam.ui.theme.ProjektAMTheme
 import androidx.compose.foundation.layout.Column
@@ -99,11 +108,24 @@ import java.time.format.DateTimeFormatter
 import java.util.Calendar
 import java.util.Locale
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.viewinterop.AndroidView
+import androidx.core.content.ContextCompat
+import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.navigation.NavType
+import androidx.navigation.navArgument
+import com.google.accompanist.permissions.rememberPermissionState
+import com.google.mlkit.vision.common.InputImage
+import com.google.mlkit.vision.text.TextRecognition
+import com.lidar.projektam.ui.screen.AddReceiptScreen
 import com.lidar.projektam.ui.screen.AddTransactionScreen
 import com.lidar.projektam.ui.screen.ChartScreen
 import com.lidar.projektam.ui.screen.CurrencyRatesScreen
 import com.lidar.projektam.ui.screen.Menu
+import com.lidar.projektam.ui.screen.ReceiptScreen
 import com.lidar.projektam.ui.screen.TransactionScreen
+import java.io.File
+import java.util.concurrent.Executor
 
 
 class MainActivity : ComponentActivity() {
@@ -148,5 +170,25 @@ fun AMApp(modifier: Modifier = Modifier) {
             ChartScreen(navController, viewModel = viewModel)
         }
         composable("rates") { CurrencyRatesScreen(navController) }
+        composable("scanner") { ReceiptScreen(navController) }
+        composable(
+            "addReceipt/{amount}",
+            arguments = listOf(navArgument("amount") { type = NavType.StringType })
+        ) { backStackEntry ->
+            val context = LocalContext.current
+            val dao = TransactionRoomDatabase.getDB(context).transactionDao()
+            val repo = TransactionRepo(dao)
+            val factory = TransactionViewModelFactory(repo)
+            val transactionViewModel: TransactionViewModel = viewModel(factory = factory)
+
+            val amount = backStackEntry.arguments?.getString("amount") ?: "0.0"
+
+            AddReceiptScreen(
+                navController = navController,
+                transactionViewModel = transactionViewModel,
+                amnt = amount
+            )
+        }
+
     }
 }

@@ -16,7 +16,7 @@
     <string name="trans_list">Transaction list</string>
     <string name="ret">Return</string>
     <string name="delete_trans_title">Delete transation</string>
-    <string name="delete_confirm_text">costam</string>
+    <string name="delete_confirm_text">Are you certain you want to delete selected transaction?</string>
     <string name="delete">delete</string>
     <string name="cancel">cancel</string>
     <string name="current_balance">Balance</string>
@@ -27,7 +27,14 @@
     <string name="rates_currency">Currency</string>
     <string name="menu_charts">Balance Chart</string>
     <string name="chart_m">month</string>
-    <string name="chart_d">day</string>
+    <string name="chart_w">week</string>
     <string name="chart_y">year</string>
     <string name="chart_a">all</string>
+    <string name="rec_btn_scan">Scan receipt</string>
+    <string name="rec_no_access">No camera access. Allow camera access in phone settings.</string>
+    <string name="rec_amnt">Total amount</string>
+    <string name="rec_not_found">Not found</string>
+    <string name="rec_title">Receipt Scanner</string>
+    <string name="rec_btn_add">Add to transactions</string>
+    <string name="rec_added">Receipt added</string>
 </resources>

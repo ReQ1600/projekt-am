@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import org.jetbrains.annotations.TestOnly
 import kotlin.random.Random
 
 
@@ -45,13 +46,14 @@ class TransactionViewModel(private val repository: TransactionRepo) : ViewModel(
         list.sumOf { if (it.type == TransactionType.INCOME) it.amount else -it.amount }
     }.stateIn(viewModelScope, SharingStarted.Eagerly, 0.0)
 
-    fun populateWithDummyData(amount: Int)
+    @TestOnly
+    fun populateWithDummyData()
     {
 
         viewModelScope.launch {
             repository.insert(
                 Transaction(
-                    amount = Random.nextDouble(),
+                    amount = Random.nextDouble() * 100,
                     type = TransactionType.values().random(),
                     description = "dummy data",
                     date = System.currentTimeMillis() - 1 * 24L * 60 * 60 * 1000
@@ -60,7 +62,7 @@ class TransactionViewModel(private val repository: TransactionRepo) : ViewModel(
             delay(100)
             repository.insert(
                 Transaction(
-                    amount = Random.nextDouble(),
+                    amount = Random.nextDouble() * 100,
                     type = TransactionType.values().random(),
                     description = "dummy data",
                     date = System.currentTimeMillis() - 5 * 24L * 60 * 60 * 1000
@@ -69,7 +71,7 @@ class TransactionViewModel(private val repository: TransactionRepo) : ViewModel(
             delay(100)
             repository.insert(
                 Transaction(
-                    amount = Random.nextDouble(),
+                    amount = Random.nextDouble() * 100,
                     type = TransactionType.values().random(),
                     description = "dummy data",
                     date = System.currentTimeMillis() - 10  * 24L * 60 * 60 * 1000
@@ -78,7 +80,7 @@ class TransactionViewModel(private val repository: TransactionRepo) : ViewModel(
             delay(100)
             repository.insert(
                 Transaction(
-                    amount = Random.nextDouble(),
+                    amount = Random.nextDouble() * 100,
                     type = TransactionType.values().random(),
                     description = "dummy data",
                     date = System.currentTimeMillis() - 30 * 24L * 60 * 60 * 1000
@@ -87,7 +89,7 @@ class TransactionViewModel(private val repository: TransactionRepo) : ViewModel(
             delay(100)
             repository.insert(
                 Transaction(
-                    amount = Random.nextDouble(),
+                    amount = Random.nextDouble() * 100,
                     type = TransactionType.values().random(),
                     description = "dummy data",
                     date = System.currentTimeMillis() - 150 * 24L * 60 * 60 * 1000

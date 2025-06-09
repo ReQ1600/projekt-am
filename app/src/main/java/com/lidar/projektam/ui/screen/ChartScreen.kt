@@ -1,5 +1,6 @@
 package com.lidar.projektam.ui.screen
 
+import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -25,7 +26,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
@@ -48,18 +48,30 @@ import com.lidar.projektam.viewmodel.TransactionViewModel
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.derivedStateOf
+
+
+enum class Range(val key: String, @StringRes val labelRes: Int) {
+    WEEK("week", R.string.chart_w),
+    MONTH("month", R.string.chart_m),
+    YEAR("year", R.string.chart_y),
+    ALL("all", R.string.chart_a)
+}
+
 
 @Composable
 fun ChartScreen(navController: NavController, viewModel: TransactionViewModel)
 {
     val transactions by viewModel.transactions.collectAsState()
 
-    var selectedRange by remember { mutableStateOf("week") }
+    var selectedRange by remember { mutableStateOf(Range.WEEK) }
 
     val filteredTrans = when (selectedRange) {
-        "week" -> transactions.filter { it.date >= nowMinusDays(7) }
-        "month" -> transactions.filter { it.date >= nowMinusDays(30) }
-        "year" -> transactions.filter { it.date >= nowMinusDays(365) }
+        Range.WEEK -> transactions.filter { it.date >= nowMinusDays(7) }
+        Range.MONTH -> transactions.filter { it.date >= nowMinusDays(30) }
+        Range.YEAR -> transactions.filter { it.date >= nowMinusDays(365) }
         else -> transactions
     }
 
@@ -145,12 +157,7 @@ fun ChartScreen(navController: NavController, viewModel: TransactionViewModel)
                 end.linkTo(parent.end)
             }
         ){
-            listOf(
-                stringResource(R.string.chart_d),
-                stringResource(R.string.chart_m),
-                stringResource(R.string.chart_y),
-                stringResource(R.string.chart_a)
-            ).forEach { range ->
+            Range.entries.forEach { range ->
                 Button(
                     onClick = { selectedRange = range },
                     modifier = Modifier.padding(end = 8.dp),
@@ -158,23 +165,33 @@ fun ChartScreen(navController: NavController, viewModel: TransactionViewModel)
                         containerColor = if (selectedRange == range) MaterialTheme.colorScheme.secondary else MaterialTheme.colorScheme.primary
                     )
                 ) {
-                    Text(range)
+                    Text(stringResource(range.labelRes))
                 }
             }
         }
 
         //chart
         val pointsData: List<Point> = balanceOverRange
+        val sortedPointsDataByVal by remember(pointsData) {
+            derivedStateOf {
+                if (pointsData.isNotEmpty()) pointsData.sortedBy { it.y } else emptyList()
+            }
+        }
+
         val datesData: List<String> = dates
         val steps = pointsData.size - 1
+        val scale by remember(pointsData) {
+            derivedStateOf {
+                if (pointsData.isNotEmpty()) (sortedPointsDataByVal.last().y - sortedPointsDataByVal.first().y) / steps else 0f
+            }
+        }
 
         val xAxisData = AxisData.Builder()
             .axisStepSize(50.dp)
-            .backgroundColor(Color.Transparent)
+            .backgroundColor(Color.White)
             .steps(steps)
             .labelData { i ->
-                val scale = (pointsData.last().y - pointsData.first().y) / steps
-                "%.2f".format(i * scale + pointsData.first().y) }
+                "%.2f".format(i * scale + sortedPointsDataByVal.first().y) }
             .labelAndAxisLinePadding(20.dp)
             .build()
 
