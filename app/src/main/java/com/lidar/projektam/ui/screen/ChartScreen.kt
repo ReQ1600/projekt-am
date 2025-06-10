@@ -48,10 +48,7 @@ import com.lidar.projektam.viewmodel.TransactionViewModel
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.derivedStateOf
-
 
 enum class Range(val key: String, @StringRes val labelRes: Int) {
     WEEK("week", R.string.chart_w),
@@ -117,16 +114,16 @@ fun ChartScreen(navController: NavController, viewModel: TransactionViewModel)
                     top.linkTo(parent.top)
                     start.linkTo(parent.start)
                     end.linkTo(parent.end)
-                }.height(50.dp),
+                }.height(80.dp),
             color = Color.DarkGray
         ){
             Box (
                 modifier = Modifier.fillMaxWidth(),
-                contentAlignment = Alignment.Center
+                contentAlignment = Alignment.BottomCenter
             ){
                 IconButton(
                     onClick = { navController.navigate("home") },
-                    modifier = Modifier.align(Alignment.CenterStart)
+                    modifier = Modifier.align(Alignment.BottomStart)
                 ) {
                     Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(R.string.ret))
                 }

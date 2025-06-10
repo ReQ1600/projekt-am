@@ -17,7 +17,6 @@ import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -121,7 +120,7 @@ fun MenuCard(item : MenuItem, navController: NavController, modifier: Modifier =
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(194.dp),
-                contentScale = ContentScale.Crop
+                contentScale = ContentScale.FillWidth
             )
             Text(
                 text = LocalContext.current.getString(item.titleId),
